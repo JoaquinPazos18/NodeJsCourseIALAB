@@ -100,8 +100,16 @@ async updateOneAuthor(
 async deleteOneAuthor(
     @Arg("input", () => authorIdInput) input: authorIdInput
 ): Promise <Boolean>{
-  await this.authorRepository.delete(input.id);
-  return true;
+    try {
+        
+        const author = await this.authorRepository.findOne(input.id);
+        if(!author) throw new Error("Author doesn't exist")
+       await this.authorRepository.delete(input.id);
+         return true;
+    } catch (e) {
+        throw new Error(`${e}`)
+    }
+ 
 }
 
 

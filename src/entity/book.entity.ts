@@ -17,7 +17,7 @@ export class Book {
     title!: string
    
     @Field( () => Author)
-    @ManyToOne(() => Author, Author => Author.books)
+    @ManyToOne(() => Author, Author => Author.books, {onDelete: 'CASCADE'})
     author!: Author
    
     @Field()
